@@ -1,21 +1,11 @@
-import requests
-import urllib.request
 import time
 from bs4 import BeautifulSoup
-import csv
 import pandas as pd
 from selenium import webdriver
-from selenium.webdriver.common.keys import Keys
-from selenium.common.exceptions import StaleElementReferenceException
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import StaleElementReferenceException
 import selenium.webdriver.support.ui as ui
-from selenium.webdriver.support import expected_conditions
 
 
-from selenium.webdriver.chrome.options import Options
 #Table Tennis MEN's RANKINGS
 #url to scrape from table tennis website
 
@@ -65,18 +55,7 @@ def scraping(html):
 
 
 
-
-
-#python_button = driver.find_element_by_css_selector('#list_69_com_fabrik_69 > tfoot > tr > td > div > div > div.pagination > ul > li.pagination-next > a')
-#This is to search for the "next" button of the ittf webpage, so that it can scrape another 50 or so players
-#a = soup.findAll('table')[1].find('tfoot').find('tr', attrs={'class': 'fabrik___heading'})
-#a_href = a.find('ul', attrs={'class':'pagination-list'}).find('li', attrs={'class': 'pagination-next'}).find('a').attrs['href']
-#a_href_url = 'https://results.ittf.link' + a_href
-#a_new = a_href_url
-count = 0
-str_num = 50
-
-wait = ui.WebDriverWait(driver,10)
+#This executes scraping and continuously clicking on the next button in the MEN's Ranking Ittf webpage
 def exceptioncatch():
     counter = 0
     attempts = 0
@@ -95,7 +74,7 @@ def exceptioncatch():
 
             print('Successful: ' + str(counter))
             counter = counter + 1
-            #Adjust this counter
+            #Adjust this counter based on how many table pages there are
             if counter == 25:
                 break
         except StaleElementReferenceException as Exception:
@@ -105,8 +84,6 @@ def exceptioncatch():
 exceptioncatch()
 
 
-
-    #Adjust this based on how many table pages there are
 
 #Using Pandas Dataframes
 dataset = pd.DataFrame(output_rows)
